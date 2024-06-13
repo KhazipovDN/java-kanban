@@ -14,12 +14,14 @@ public class AbstractTask {
     public AbstractTask(String name, String description, Status status) {
         this.name = name;
         this.description = description;
+        this.status = status;
     }
 
     public AbstractTask(String name, String description, Status status,int id) {
         this.name = name;
         this.description = description;
         this.id = id;
+        this.status = status;
     }
 
     public String getDescription() {
@@ -69,7 +71,7 @@ public class AbstractTask {
         return Objects.hashCode(id);
     }
 
-    public int getId() {
+        public int getId() {
         return id;
     }
 

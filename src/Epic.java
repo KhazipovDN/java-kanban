@@ -9,8 +9,8 @@ public class Epic extends AbstractTask {
         this.status = Status.NEW;
     }
 
-    public void setSubtask(int id, Subtask subtask) {
-        sons.put(id, subtask);
+    public void setSubtask(Subtask subtask) {
+        sons.put(subtask.getId(), subtask);
     }
 
     public void updateSubtaskInEpic(int id, Subtask subtask) {

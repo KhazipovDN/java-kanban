@@ -13,8 +13,8 @@ public class Main {
         taskManager.addSubtask(new Subtask("Зайти в магазин","Открыть дверь и зайти",1,Status.DONE),1);
         System.out.println(taskManager.getAllEpic());
         //System.out.println(taskManager.getAllSubtask());
-        taskManager.updateSubtask(new Subtask("Сходить в пивную","Купить пива",1,Status.IN_PROGRESS, 2),2);
-        //System.out.println(taskManager.getAllSubtask());
+        taskManager.updateSubtask(new Subtask("Сходить в пивную","Купить пива",1,Status.IN_PROGRESS, 2));
+        System.out.println(taskManager.getAllSubtask());
         //System.out.println(taskManager.getAllEpic());
         //System.out.println(taskManager.SubtaskFromEpic(1));
         //taskManager.deleteAllSubtask();
