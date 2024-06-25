@@ -9,6 +9,12 @@ public class Epic extends AbstractTask {
         this.status = Status.NEW;
     }
 
+    public Epic(String name, String description, int id) {
+        super(name, description,Status.NEW, id);
+        sons = new HashMap<>();
+        this.status = Status.NEW;
+    }
+
     public void setSubtask(Subtask subtask) {
         sons.put(subtask.getId(), subtask);
     }

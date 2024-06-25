@@ -3,7 +3,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Поехали!");
 
-
+/*
         TaskManager taskManager = new TaskManager();
        Epic Magaz= new Epic("Сходить в магазин","Выйти на улицу и сходить в магазин");
 
@@ -20,6 +20,6 @@ public class Main {
         //taskManager.deleteAllSubtask();
         //System.out.println(taskManager.getAllSubtask());
         //System.out.println(taskManager.SubtaskFromEpic(1));
-        System.out.println(taskManager.getAllEpic());
+        System.out.println(taskManager.getAllEpic());*/
     }
 }
