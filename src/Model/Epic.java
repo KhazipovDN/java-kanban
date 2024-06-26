@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.HashMap;
 
 public class Epic extends AbstractTask {
@@ -10,7 +12,7 @@ public class Epic extends AbstractTask {
     }
 
     public Epic(String name, String description, int id) {
-        super(name, description,Status.NEW, id);
+        super(name, description, Status.NEW, id);
         sons = new HashMap<>();
         this.status = Status.NEW;
     }

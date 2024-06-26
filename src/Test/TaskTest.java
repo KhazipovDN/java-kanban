@@ -1,3 +1,7 @@
+package Test;
+
+import Model.Status;
+import Model.Task;
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -14,7 +18,7 @@ public class TaskTest {
     @Test
     public void testNotEqual() {
         Task task1 = new Task("Test addNewSubtask", "Test addNewSubtask description",Status.NEW,1);
-        Task task2 = new Task("Test addNewSubtask", "Test addNewSubtask description",Status.NEW,2);
+        Task task2 = new Task("Test addNewSubtask", "Test addNewSubtask description", Status.NEW,2);
 
         assertNotEquals(task1, task2);
     }

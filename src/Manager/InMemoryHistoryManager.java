@@ -1,7 +1,11 @@
+package Manager;
+
+import Model.AbstractTask;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class InMemoryHistoryManager implements HistoryManager{
+public class InMemoryHistoryManager implements HistoryManager {
     private List<AbstractTask> viewed;
 
     public InMemoryHistoryManager() {
@@ -10,8 +14,9 @@ public class InMemoryHistoryManager implements HistoryManager{
 
     @Override
     public void add(AbstractTask abstractTask){
-        viewed.add(abstractTask);
-
+        if (viewed.size()<10) viewed.add(abstractTask);
+        else {viewed.remove(0);
+            viewed.add(abstractTask);}
     }
 
     @Override

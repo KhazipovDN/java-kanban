@@ -1,3 +1,10 @@
+package Test;
+
+import Manager.InMemoryTaskManager;
+import Model.Epic;
+import Model.Status;
+import Model.Subtask;
+import Model.Task;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

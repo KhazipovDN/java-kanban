@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.Objects;
 
 public class AbstractTask {
@@ -17,7 +19,7 @@ public class AbstractTask {
         this.status = status;
     }
 
-    public AbstractTask(String name, String description, Status status,int id) {
+    public AbstractTask(String name, String description, Status status, int id) {
         this.name = name;
         this.description = description;
         this.id = id;

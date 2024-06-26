@@ -5,15 +5,15 @@ public class Main {
 
 /*
         TaskManager taskManager = new TaskManager();
-       Epic Magaz= new Epic("Сходить в магазин","Выйти на улицу и сходить в магазин");
+       Model.Epic Magaz= new Model.Epic("Сходить в магазин","Выйти на улицу и сходить в магазин");
 
         taskManager.addEpic(Magaz);
-        taskManager.addSubtask(new Subtask("Выйти из дома","Сесть в лифт и спуститься",1,Status.IN_PROGRESS),1);
-        taskManager.addSubtask(new Subtask("Дойти до булочной","Выйти из подъезда и дойти до булочной",1,Status.DONE),1);
-        taskManager.addSubtask(new Subtask("Зайти в магазин","Открыть дверь и зайти",1,Status.DONE),1);
+        taskManager.addSubtask(new Model.Subtask("Выйти из дома","Сесть в лифт и спуститься",1,Model.Status.IN_PROGRESS),1);
+        taskManager.addSubtask(new Model.Subtask("Дойти до булочной","Выйти из подъезда и дойти до булочной",1,Model.Status.DONE),1);
+        taskManager.addSubtask(new Model.Subtask("Зайти в магазин","Открыть дверь и зайти",1,Model.Status.DONE),1);
         System.out.println(taskManager.getAllEpic());
         //System.out.println(taskManager.getAllSubtask());
-        taskManager.updateSubtask(new Subtask("Сходить в пивную","Купить пива",1,Status.IN_PROGRESS, 2));
+        taskManager.updateSubtask(new Model.Subtask("Сходить в пивную","Купить пива",1,Model.Status.IN_PROGRESS, 2));
         System.out.println(taskManager.getAllSubtask());
         //System.out.println(taskManager.getAllEpic());
         //System.out.println(taskManager.SubtaskFromEpic(1));

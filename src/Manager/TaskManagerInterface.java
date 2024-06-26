@@ -1,14 +1,20 @@
-import java.util.ArrayList;
+package Manager;
+
+import Model.AbstractTask;
+import Model.Epic;
+import Model.Subtask;
+import Model.Task;
+
 import java.util.List;
 
 public interface TaskManagerInterface {
-    ArrayList<Subtask> subtaskFromEpic(int id);
+    List<Subtask> subtaskFromEpic(int id);
 
-    ArrayList<Task> getAllTask();
+    List<Task> getAllTask();
 
-    ArrayList<Subtask> getAllSubtask();
+    List<Subtask> getAllSubtask();
 
-    ArrayList<Epic> getAllEpic();
+    List<Epic> getAllEpic();
 
     void deleteAllTask();
 

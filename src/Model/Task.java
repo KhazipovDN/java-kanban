@@ -1,8 +1,10 @@
+package Model;
+
 import java.util.Objects;
 
-public class Task extends AbstractTask{
+public class Task extends AbstractTask {
 
-    public Task(String name, String description, Status status,int id) {
+    public Task(String name, String description, Status status, int id) {
         super(name, description, status, id);
     }
 
