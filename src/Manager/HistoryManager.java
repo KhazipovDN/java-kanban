@@ -5,8 +5,7 @@ import Model.AbstractTask;
 import java.util.List;
 
 public interface HistoryManager {
-
-    void add(AbstractTask abstractTask);
-
+    void remove(int id);
+    void add(AbstractTask abstractTask,int id);
     List<AbstractTask> getHistory();
 }

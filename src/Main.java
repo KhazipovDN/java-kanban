@@ -3,8 +3,8 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Поехали!");
 
-/*
-        TaskManager taskManager = new TaskManager();
+
+   /*     TaskManager taskManager = new TaskManager();
        Model.Epic Magaz= new Model.Epic("Сходить в магазин","Выйти на улицу и сходить в магазин");
 
         taskManager.addEpic(Magaz);
