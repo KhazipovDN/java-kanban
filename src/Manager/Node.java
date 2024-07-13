@@ -11,6 +11,7 @@ import Model.AbstractTask;
             this.abstractTask=abstractTask;
             this.next = null;
             this.prev = null;
+
         }
 
     }

@@ -14,7 +14,7 @@ public interface TaskManagerInterface {
 
     List<Subtask> getAllSubtask();
 
-    List<Epic> getAllEpic();
+    List<Epic> getAllEpic( );
 
     void deleteAllTask();
 

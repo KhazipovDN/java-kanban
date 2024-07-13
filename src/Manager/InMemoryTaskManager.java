@@ -153,6 +153,7 @@ public class InMemoryTaskManager implements TaskManagerInterface {
             subtasks.remove(id);
         }
     }
+
     @Override
     public void deleteEpic(int id) {
         if (!epics.containsKey(id))

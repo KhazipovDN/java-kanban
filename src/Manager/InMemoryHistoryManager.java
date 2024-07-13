@@ -29,7 +29,6 @@ public class InMemoryHistoryManager implements HistoryManager {
         NodeMap.put(id, node);
 
     }
-
     @Override
     public List<AbstractTask> getHistory() {
         for (Node node = head; node != null; node = node.next) {
