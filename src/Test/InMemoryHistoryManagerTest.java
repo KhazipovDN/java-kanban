@@ -11,16 +11,11 @@ import static org.junit.Assert.*;
 
 public class InMemoryHistoryManagerTest {
 
-    private InMemoryTaskManager inMemoryTaskManager= new InMemoryTaskManager();;
-/*
-    @BeforeEach
-    public void setUp() {
-        inMemoryTaskManager = new InMemoryTaskManager();
-    }*/
 
     @Test
     public void testAddTask() {
-    Task task1 = new Task("Model.Task 1", "Description 1", Status.NEW,1);
+        InMemoryTaskManager inMemoryTaskManager= new InMemoryTaskManager();
+        Task task1 = new Task("Model.Task 1", "Description 1", Status.NEW,1);
     inMemoryTaskManager.addTask(task1);
     inMemoryTaskManager.getTask(1);
     Task task2 = new Task("Model.Task 2", "Description 2",Status.NEW,1);
@@ -36,25 +31,30 @@ public class InMemoryHistoryManagerTest {
 
     @Test
     public void NewTestAddTask() {
+        InMemoryTaskManager inMemoryTaskManager= new InMemoryTaskManager();
         Task task1 = new Task("Model.Task 1", "Description 1", Status.NEW,1);
         inMemoryTaskManager.addTask(task1);
         inMemoryTaskManager.getTask(1);
-        Task task2 = new Task("Model.Task 2", "Description 2",Status.NEW,1);
+        Task task2 = new Task("Model.Task 2", "Description 2",Status.NEW,2);
         inMemoryTaskManager.addTask(task2);
         inMemoryTaskManager.getTask(2);
+        Task task3 = new Task("Model.Task 3", "Description 3",Status.NEW,3);
+        inMemoryTaskManager.addTask(task3);
+        inMemoryTaskManager.getTask(3);
 
-        assertEquals(2, inMemoryTaskManager.getAllTask().size());
-        assertEquals(2, inMemoryTaskManager.getHistory().size());
+        assertEquals(3, inMemoryTaskManager.getAllTask().size());
+        assertEquals(3, inMemoryTaskManager.getHistory().size());
 
         assertEquals(task1, inMemoryTaskManager.getHistory().get(0));
         assertEquals(task2, inMemoryTaskManager.getHistory().get(1));
-
-        inMemoryTaskManager.getTask(1);
-
-        assertEquals(task2, inMemoryTaskManager.getHistory().get(0));
-        assertEquals(task1, inMemoryTaskManager.getHistory().get(1));
+        assertEquals(task3, inMemoryTaskManager.getHistory().get(2));
 
 
+        inMemoryTaskManager.getTask(2);
+
+        assertEquals(task1, inMemoryTaskManager.getHistory().get(0));
+        assertEquals(task3, inMemoryTaskManager.getHistory().get(1));
+        assertEquals(task2, inMemoryTaskManager.getHistory().get(2));
     }
 
 }
