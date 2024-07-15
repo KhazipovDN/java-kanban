@@ -12,13 +12,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskManagerInterfaceTest {
-    InMemoryTaskManager taskManager=new InMemoryTaskManager();
+    InMemoryTaskManager taskManager = new InMemoryTaskManager();
 
     @Test
     void addNewEpic() {
         Epic epic = new Epic("Test addNewSubtask", "Test addNewSubtask description");
         taskManager.addEpic(epic);
-        final int epicId =epic.getId();
+        final int epicId = epic.getId();
 
         final Epic savedEpic = taskManager.getEpic(epicId);
 
@@ -39,7 +39,7 @@ class TaskManagerInterfaceTest {
         taskManager.addEpic(epic);
         Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description",1, Status.NEW);
         taskManager.addSubtask(subtask,1);
-        final int subtaskId =subtask.getId();
+        final int subtaskId = subtask.getId();
 
         final Subtask savedSubtask = taskManager.getSubtask(subtaskId);
 
@@ -57,7 +57,7 @@ class TaskManagerInterfaceTest {
     void addNewTask() {
         Task task = new Task("Test addNewTask", "Test addNewTask description", Status.NEW);
         taskManager.addTask(task);
-        final int taskId =task.getId();
+        final int taskId = task.getId();
 
         final Task savedTask = taskManager.getTask(taskId);
 
