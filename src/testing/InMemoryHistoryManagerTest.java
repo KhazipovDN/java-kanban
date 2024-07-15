@@ -1,4 +1,4 @@
-package TestModule;
+package testing;
 
 import Manager.InMemoryTaskManager;
 import Model.Status;

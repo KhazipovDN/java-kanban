@@ -1,4 +1,4 @@
-package TestModule;
+package testing;
 
 import Manager.Managers;
 import org.junit.Test;

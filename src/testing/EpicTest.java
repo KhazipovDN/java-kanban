@@ -1,4 +1,4 @@
-package TestModule;
+package testing;
 
 import Model.Epic;
 import org.junit.Test;
