@@ -6,12 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class ManagerTest {
-     @Test
-     public void testGetDefault() {
-         Manager.Managers manager = new Manager.Managers();
-         assertNotNull(manager.getDefault(),"Не возвращается");
+    @Test
+    public void testGetDefault() {
+        Manager.Managers manager = new Manager.Managers();
+        assertNotNull(manager.getDefault(),"Не возвращается");
 
-     }
+    }
 
     @Test
     public void testGetDefaultHistory() {
