@@ -10,7 +10,7 @@ public class InMemoryHistoryManagerTest {
 
     @Test
     public void testAddTask() {
-        InMemoryTaskManager inMemoryTaskManager=new InMemoryTaskManager();
+        InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
         Task task1 = new Task("Model.Task 1", "Description 1", Status.NEW,1);
         inMemoryTaskManager.addTask(task1);
         inMemoryTaskManager.getTask(1);
