@@ -1,4 +1,4 @@
-package Model;
+package modelFolder;
 
 import java.util.Objects;
 
@@ -11,6 +11,7 @@ public class Task extends AbstractTask {
     public Task(String name, String description, Status status) {
         super(name, description, status);
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

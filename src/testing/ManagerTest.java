@@ -1,6 +1,6 @@
 package testing;
 
-import Manager.Managers;
+import managerFolder.Managers;
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class ManagerTest {
     @Test
     public void testGetDefault() {
-        Manager.Managers manager = new Manager.Managers();
+        Managers manager = new Managers();
         assertNotNull(manager.getDefault(),"Не возвращается");
 
     }

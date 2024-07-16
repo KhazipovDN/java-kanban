@@ -1,11 +1,11 @@
-package Manager;
+package managerFolder;
 
 public class Managers {
-    static TaskManagerInterface TaskManager =new Manager.InMemoryTaskManager();
+    static TaskManagerInterface TaskManager =new InMemoryTaskManager();
     static HistoryManager viewed = new InMemoryHistoryManager();
 
 
-    public static Manager.TaskManagerInterface getDefault(){
+    public static TaskManagerInterface getDefault(){
         return TaskManager;
     }
 

@@ -1,6 +1,6 @@
-package Manager;
+package managerFolder;
 
-import Model.AbstractTask;
+import modelFolder.AbstractTask;
 
 import java.util.ArrayList;
 import java.util.List;

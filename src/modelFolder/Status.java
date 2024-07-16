@@ -1,4 +1,4 @@
-package Model;
+package modelFolder;
 
 public enum Status {
     NEW,

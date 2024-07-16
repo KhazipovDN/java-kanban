@@ -1,4 +1,4 @@
-package Model;
+package modelFolder;
 
 import java.util.Objects;
 
