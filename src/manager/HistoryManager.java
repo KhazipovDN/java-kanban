@@ -1,6 +1,6 @@
-package manag;
+package manager;
 
-import mod.AbstractTask;
+import model.AbstractTask;
 
 import java.util.List;
 

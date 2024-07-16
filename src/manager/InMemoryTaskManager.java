@@ -1,9 +1,9 @@
-package manag;
+package manager;
 
-import mod.AbstractTask;
-import mod.Epic;
-import mod.Subtask;
-import mod.Task;
+import model.AbstractTask;
+import model.Epic;
+import model.Subtask;
+import model.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;

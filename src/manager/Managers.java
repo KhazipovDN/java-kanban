@@ -1,7 +1,7 @@
-package manag;
+package manager;
 
 public class Managers {
-    static TaskManagerInterface TaskManager =new InMemoryTaskManager();
+    static TaskManagerInterface TaskManager = new InMemoryTaskManager();
     static HistoryManager viewed = new InMemoryHistoryManager();
 
 
