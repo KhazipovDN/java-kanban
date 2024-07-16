@@ -1,4 +1,4 @@
-package testing;
+package test;
 
 import manager.Managers;
 import org.junit.Test;
