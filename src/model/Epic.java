@@ -1,4 +1,4 @@
-package modelFolder;
+package model;
 
 import java.util.HashMap;
 

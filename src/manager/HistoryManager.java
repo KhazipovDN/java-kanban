@@ -1,6 +1,6 @@
-package managerFolder;
+package manager;
 
-import modelFolder.AbstractTask;
+import model.AbstractTask;
 
 import java.util.List;
 

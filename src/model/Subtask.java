@@ -1,4 +1,4 @@
-package modelFolder;
+package model;
 
 public class Subtask extends AbstractTask {
     int epicId;
