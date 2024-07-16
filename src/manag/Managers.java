@@ -1,4 +1,4 @@
-package manager;
+package manag;
 
 public class Managers {
     static TaskManagerInterface TaskManager =new InMemoryTaskManager();

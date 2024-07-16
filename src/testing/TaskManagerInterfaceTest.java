@@ -1,6 +1,6 @@
 package testing;
 
-import manager.InMemoryTaskManager;
+import manag.InMemoryTaskManager;
 import model.Epic;
 import model.Status;
 import model.Subtask;

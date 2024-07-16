@@ -1,10 +1,12 @@
-package manager;
+package manag;
 
 import model.AbstractTask;
 
 import java.util.List;
 
 public interface HistoryManager {
+
     void add(AbstractTask abstractTask);
+
     List<AbstractTask> getHistory();
 }

@@ -1,6 +1,6 @@
 package testing;
 
-import manager.InMemoryTaskManager;
+import manag.InMemoryTaskManager;
 import model.Status;
 import model.Task;
 import org.junit.Test;

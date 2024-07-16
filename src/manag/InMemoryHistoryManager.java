@@ -1,4 +1,4 @@
-package manager;
+package manag;
 
 import model.AbstractTask;
 
