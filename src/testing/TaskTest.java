@@ -1,7 +1,7 @@
 package testing;
 
-import model.Status;
-import model.Task;
+import mod.Status;
+import mod.Task;
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

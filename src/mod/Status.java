@@ -1,4 +1,4 @@
-package model;
+package mod;
 
 public enum Status {
     NEW,

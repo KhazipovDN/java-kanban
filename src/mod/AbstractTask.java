@@ -1,4 +1,4 @@
-package model;
+package mod;
 
 import java.util.Objects;
 
@@ -19,18 +19,18 @@ public class AbstractTask {
         this.status = status;
     }
 
-    public AbstractTask (String name, String description, Status status, int id) {
+    public AbstractTask(String name, String description, Status status, int id) {
         this.name = name;
         this.description = description;
         this.id = id;
         this.status = status;
     }
 
-    public String getDescription () {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription (String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 

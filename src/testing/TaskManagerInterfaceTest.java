@@ -1,10 +1,10 @@
 package testing;
 
 import manag.InMemoryTaskManager;
-import model.Epic;
-import model.Status;
-import model.Subtask;
-import model.Task;
+import mod.Epic;
+import mod.Status;
+import mod.Subtask;
+import mod.Task;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
