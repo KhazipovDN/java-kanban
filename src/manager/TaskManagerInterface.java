@@ -22,29 +22,29 @@ public interface TaskManagerInterface {
 
     void deleteAllEpic();
 
-    Task getTask (int id);
+    Task getTask(int id);
 
-    Subtask getSubtask (int id);
+    Subtask getSubtask(int id);
 
-    Epic getEpic (int id);
+    Epic getEpic(int id);
 
-    void addTask (Task newtask);
+    void addTask(Task newtask);
 
-    void addSubtask (Subtask newSubtask, int epicId);
+    void addSubtask(Subtask newSubtask, int epicId);
 
-    void addEpic (Epic newEpic);
+    void addEpic(Epic newEpic);
 
-    void updateTask (Task taskObject);
+    void updateTask(Task taskObject);
 
-    void updateEpic (Epic newEpic);
+    void updateEpic(Epic newEpic);
 
-    void updateSubtask (Subtask newSubtask);
+    void updateSubtask(Subtask newSubtask);
 
-    void deleteSubtask (int id);
+    void deleteSubtask(int id);
 
-    void deleteEpic (int id);
+    void deleteEpic(int id);
 
-    void deleteTask (int id);
+    void deleteTask(int id);
 
     List<AbstractTask> getHistory();
 
