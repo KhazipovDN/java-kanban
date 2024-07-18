@@ -77,19 +77,19 @@ public class InMemoryTaskManager implements TaskManagerInterface {
 
     @Override
     public Task getTask(int id) {
-        historyManager.add(tasks.get(id));
+        historyManager.add(tasks.get(id), id);
         return tasks.get(id);
     }
 
     @Override
     public Subtask getSubtask(int id) {
-        historyManager.add(tasks.get(id));
+        historyManager.add(subtasks.get(id), id);
         return subtasks.get(id);
     }
 
     @Override
     public Epic getEpic(int id) {
-        historyManager.add(tasks.get(id));
+        historyManager.add(epics.get(id), id);
         return epics.get(id);
     }
 
@@ -112,7 +112,6 @@ public class InMemoryTaskManager implements TaskManagerInterface {
         } else
             System.out.println("Нет Эпика!");
     }
-
 
     @Override
     public void addEpic(Epic newEpic) {
@@ -192,5 +191,4 @@ public class InMemoryTaskManager implements TaskManagerInterface {
     public List<AbstractTask> getHistory() {
         return historyManager.getHistory();
     }
-
 }
