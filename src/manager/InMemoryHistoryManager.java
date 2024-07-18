@@ -10,19 +10,19 @@ public class InMemoryHistoryManager implements HistoryManager {
     private List<AbstractTask> viewed;
     Node head;
     Node tail;
-    private HashMap<Integer, Node> NodeMap ;
+    private HashMap<Integer, Node> nodeMap;
 
     public InMemoryHistoryManager() {
         viewed = new ArrayList<>();
-        NodeMap = new HashMap<>();
+        nodeMap = new HashMap<>();
     }
 
     @Override
-    public void add(AbstractTask abstractTask, int taskId) {// Первоначально функция выглядеа так: public void add(AbstractTask abstractTask, int taskId)
+    public void add(AbstractTask abstractTask, int taskId) { // Первоначально функция выглядеа так: public void add(AbstractTask abstractTask, int taskId)
         int id = taskId;                                      //int id=abstractTask.getId() - но у меня вылетала ошибка, то значение null
         Node node = new Node(abstractTask);                 // почему я е могу получить id по вызову getId()?
-        if (NodeMap.containsKey(id)) {
-            Node forDeleteNode = NodeMap.get(id);
+        if (nodeMap.containsKey(id)) {
+            Node forDeleteNode = nodeMap.get(id);
             removeNode(forDeleteNode);
         }
         linkLast(abstractTask,id);
@@ -52,15 +52,15 @@ public class InMemoryHistoryManager implements HistoryManager {
             newNode.prev = tail;
             tail = newNode;
         }
-        NodeMap.put(id, newNode);
+        nodeMap.put(id, newNode);
     }
 
     public ArrayList<AbstractTask> getTasks() {
-        ArrayList<AbstractTask> ArrTasks = new ArrayList<>();
+        ArrayList<AbstractTask> arrTasks = new ArrayList<>();
         for (Node node = head; node != null; node = node.next) {
-            ArrTasks.add(node.abstractTask);
+            arrTasks.add(node.abstractTask);
         }
-        return ArrTasks;
+        return arrTasks;
     }
 
     public void removeNode(Node node) {
