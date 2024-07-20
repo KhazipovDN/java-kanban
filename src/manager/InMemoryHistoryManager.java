@@ -7,41 +7,41 @@ import java.util.HashMap;
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private List<AbstractTask> viewed;
     Node head;
     Node tail;
     private HashMap<Integer, Node> nodeMap;
 
     public InMemoryHistoryManager() {
-        viewed = new ArrayList<>();
         nodeMap = new HashMap<>();
     }
 
     @Override
-    public void add(AbstractTask abstractTask, int taskId) { // Первоначально функция выглядеа так: public void add(AbstractTask abstractTask, int taskId)
-        int id = taskId;                                      //int id=abstractTask.getId() - но у меня вылетала ошибка, то значение null
-        Node node = new Node(abstractTask);                 // почему я е могу получить id по вызову getId()?
-        if (nodeMap.containsKey(id)) {
-            Node forDeleteNode = nodeMap.get(id);
-            removeNode(forDeleteNode);
+    public void add(AbstractTask abstractTask) {
+        if (abstractTask != null) {
+            int id = abstractTask.getId();
+            if (nodeMap.containsKey(id)) {
+                Node forDeleteNode = nodeMap.get(id);
+                removeNode(forDeleteNode);
+            }
+            linkLast(abstractTask, id);
         }
-        linkLast(abstractTask,id);
     }
 
     @Override
     public List<AbstractTask> getHistory() {
-        viewed.clear();
-        for (Node node = head; node != null; node = node.next) {
-            viewed.add(node.abstractTask);
-        }
-        return viewed;
+        return getTasks();
     }
+
 
     @Override
     public void remove(int id) {
+        if (nodeMap.containsKey(id)) {
+            Node forDeleteNode = nodeMap.get(id);
+            removeNode(forDeleteNode);
+        }
     }
 
-    public void linkLast(AbstractTask abstractTask, int id) {
+    private void linkLast(AbstractTask abstractTask, int id) {
         Node newNode = new Node(abstractTask);
 
         if (head == null) {
@@ -57,13 +57,14 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     public ArrayList<AbstractTask> getTasks() {
         ArrayList<AbstractTask> arrTasks = new ArrayList<>();
+        arrTasks.clear();
         for (Node node = head; node != null; node = node.next) {
             arrTasks.add(node.abstractTask);
         }
         return arrTasks;
     }
 
-    public void removeNode(Node node) {
+    private void removeNode(Node node) {
         if (node == null) {
             return;
         }
@@ -72,8 +73,10 @@ public class InMemoryHistoryManager implements HistoryManager {
             tail = null;
         } else if (node == head) {
             head = node.next;
+            head.prev = null;
         } else if (node == tail) {
             tail = node.prev;
+            tail.next = null;
         } else {
             node.prev.next = node.next;
             node.next.prev = node.prev;
