@@ -57,6 +57,9 @@ public class InMemoryTaskManager implements TaskManagerInterface {
 
     @Override
     public void deleteAllTask() {
+        for (Task task : tasks.values()) {
+            historyManager.remove(task.getId());
+        }
         tasks.clear();
     }
 
@@ -66,11 +69,20 @@ public class InMemoryTaskManager implements TaskManagerInterface {
             e.deleteAllSubstack();
             e.changeStatus();
         }
+        for (Subtask subtask : subtasks.values()) {
+            historyManager.remove(subtask.getId());
+        }
         subtasks.clear();
     }
 
     @Override
     public void deleteAllEpic() {
+        for (Subtask subtask : subtasks.values()) {
+            historyManager.remove(subtask.getId());
+        }
+        for (Epic e : epics.values()) {
+            historyManager.remove(e.getId());
+        }
         subtasks.clear();
         epics.clear();
     }
@@ -158,6 +170,7 @@ public class InMemoryTaskManager implements TaskManagerInterface {
         if (!subtasks.containsKey(id))
             System.out.println("Нет такой подзадачи по такому идентификатору");
         else {
+            historyManager.remove(id);
             int epicInt = subtasks.get(id).getEpicId();
             Epic thisEpic = epics.get(epicInt);
             thisEpic.deleteUnitSubstack(id);
@@ -171,8 +184,10 @@ public class InMemoryTaskManager implements TaskManagerInterface {
         if (!epics.containsKey(id))
             System.out.println("Нет такого эпика по такому идентификатору");
         else {
+            historyManager.remove(id);
             for (int i : epics.get(id).getSons().keySet()) {
                 subtasks.remove(i);
+                historyManager.remove(i);
             }
             epics.remove(id);
         }
@@ -183,6 +198,7 @@ public class InMemoryTaskManager implements TaskManagerInterface {
         if (!tasks.containsKey(id))
             System.out.println("Нет такой подзадачи по такому идентификатору");
         else {
+            historyManager.remove(id);
             tasks.remove(id);
         }
     }
