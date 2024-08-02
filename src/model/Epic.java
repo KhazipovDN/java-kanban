@@ -61,7 +61,7 @@ public class Epic extends AbstractTask {
 
     @Override
     public String toString() {
-        return id+
+        return id +
                 ",EPIC" +
                 "," + name +
                 "," + status +
