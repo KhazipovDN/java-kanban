@@ -24,7 +24,7 @@ public class Subtask extends AbstractTask {
 
     @Override
     public String toString() {
-        return id+
+        return id +
                 ",SUBTASK" +
                 "," + name +
                 "," + status +
