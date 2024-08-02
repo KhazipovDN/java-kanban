@@ -25,4 +25,13 @@ public class Task extends AbstractTask {
         return Objects.hashCode(id);
     }
 
+    @Override
+    public String toString() {
+        return id+
+                ",TASK" +
+                "," + name +
+                "," + status +
+                "," + description;
+    }
+
 }

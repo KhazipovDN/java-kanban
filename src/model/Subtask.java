@@ -21,5 +21,16 @@ public class Subtask extends AbstractTask {
     public void setEpicId(int epicId) {
         this.epicId = epicId;
     }
+
+    @Override
+    public String toString() {
+        return id+
+                ",SUBTASK" +
+                "," + name +
+                "," + status +
+                "," + description+
+                "," + epicId;
+    }
+
 }
 

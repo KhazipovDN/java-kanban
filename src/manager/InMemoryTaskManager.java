@@ -121,7 +121,7 @@ public class InMemoryTaskManager implements TaskManagerInterface {
             Epic parentEpic = epics.get(epicId);
             parentEpic.setSubtask(newSubtask);
             parentEpic.changeStatus();
-        } else
+       } else
             System.out.println("Нет Эпика!");
     }
 
