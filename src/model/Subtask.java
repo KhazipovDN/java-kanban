@@ -28,7 +28,7 @@ public class Subtask extends AbstractTask {
                 ",SUBTASK" +
                 "," + name +
                 "," + status +
-                "," + description+
+                "," + description +
                 "," + epicId;
     }
 
