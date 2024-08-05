@@ -99,8 +99,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public AbstractTask fromString(String value) {
         String[] parts = value.split(",");
         int id = Integer.parseInt(parts[0]);
-        if (id>count) {
-            count=id;
+        if (id > count) {
+            count = id;
         }
         TaskType taskType = TaskType.valueOf(parts[1]);
         String name = parts[2];
