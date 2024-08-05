@@ -37,6 +37,12 @@ public class InMemoryTaskManager implements TaskManagerInterface {
         }
     }
 
+    public void subtaskIntoEpic() {
+        for (Subtask subtask : subtasks.values()) {
+          epics.get(subtask.getEpicId()).setSubtask(subtask);
+        }
+    }
+
     @Override
     public ArrayList<Task> getAllTask() {
         ArrayList<Task> arrTask = new ArrayList<>(tasks.values());
@@ -110,6 +116,18 @@ public class InMemoryTaskManager implements TaskManagerInterface {
         count++;
         newtask.setId(count);
         tasks.put(count, newtask);
+    }
+
+    protected void putTask(Task newtask) {
+        tasks.put(newtask.getId(), newtask);
+    }
+
+    protected void putSubtask(Subtask newSubtask) {
+        subtasks.put(newSubtask.getId(), newSubtask);
+    }
+
+    protected void putEpic(Epic newEpic) {
+        epics.put(newEpic.getId(), newEpic);
     }
 
     @Override

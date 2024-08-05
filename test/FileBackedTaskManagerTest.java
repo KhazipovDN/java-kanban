@@ -42,13 +42,12 @@ public class FileBackedTaskManagerTest {
         assertEquals(1, manager.getAllSubtask().size());
         assertEquals(1, manager.getAllEpic().size());
 
-        //FileBackedTaskManager loadFile = FileBackedTaskManager.loadFromFile(tempFile.toPath());
+        FileBackedTaskManager loadFile = FileBackedTaskManager.loadFromFile(tempFile.toPath());
 
-        //assertEquals(1, loadFile.getAllTask().size());
-        //assertEquals(1, loadFile.getAllEpic().size());
-        //assertEquals(1, loadFile.getAllSubtask().size());- никак ошибка не хочет отлавливаться ошибка,
-        // где то не передается номер эпика, нигде не могу найти. Subtaskов нет вообще (Нет Эпика для добавления подзадачи)
-        // сразу же прошу выдать и другие замечания
+        assertEquals(1, loadFile.getAllTask().size());
+        assertEquals(1, loadFile.getAllEpic().size());
+        assertEquals(1, loadFile.getAllSubtask().size());
+
 
     }
 

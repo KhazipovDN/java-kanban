@@ -47,6 +47,10 @@ public class Epic extends AbstractTask {
         this.sons = sons;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public void deleteUnitSubstack(int id) {
         sons.remove(id);
     }

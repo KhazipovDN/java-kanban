@@ -1,6 +1,7 @@
 package manager;
 
 import model.*;
+import myExceptions.ManagerSaveException;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -10,7 +11,6 @@ import java.util.ArrayList;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
     private Path file;
-    public static String position = "ForSaveInFile";
 
     public FileBackedTaskManager(Path file) {
         this.file = file;
@@ -42,9 +42,66 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
+    @Override
+    public void deleteAllTask() {
+        super.deleteAllTask();
+        save();
+    }
+
+    @Override
+    public void deleteAllSubtask() {
+        super.deleteAllSubtask();
+        save();
+    }
+
+    @Override
+    public void deleteAllEpic() {
+        super.deleteAllEpic();
+        save();
+    }
+
+    @Override
+    public void updateTask(Task taskObject) {
+        super.updateTask(taskObject);
+        save();
+    }
+
+    @Override
+    public void updateEpic(Epic newEpic) {
+        super.updateEpic(newEpic);
+        save();
+    }
+
+    @Override
+    public void updateSubtask(Subtask newSubtask) {
+        super.updateSubtask(newSubtask);
+        save();
+    }
+
+    @Override
+    public void deleteSubtask(int id) {
+        super.deleteSubtask(id);
+        save();
+    }
+
+    @Override
+    public void deleteEpic(int id) {
+        super.deleteEpic(id);
+        save();
+    }
+
+    @Override
+    public void deleteTask(int id) {
+        super.deleteTask(id);
+        save();
+    }
+
     public AbstractTask fromString(String value) {
         String[] parts = value.split(",");
         int id = Integer.parseInt(parts[0]);
+        if (id>count) {
+            count=id;
+        }
         TaskType taskType = TaskType.valueOf(parts[1]);
         String name = parts[2];
         Status status = Status.valueOf(parts[3]);
@@ -57,44 +114,45 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return switch (taskType) {
             case TASK -> new Task(name, description, status, id);
             case SUBTASK -> new Subtask(name, description, epicId, status, id);
-            case EPIC -> new Epic(name, description, id);
+            case EPIC -> {
+                Epic epic = new Epic(name, description, id);
+                epic.setStatus(status);
+                yield epic;
+            }
         };
     }
 
     public void save() throws ManagerSaveException {
-        if (position.equals("ForSaveInFile")) {
-            ArrayList<Task> arrTask = getAllTask();
-            ArrayList<Subtask> arrSubtasks = getAllSubtask();
-            ArrayList<Epic> arrEpics = getAllEpic();
+        ArrayList<Task> arrTask = getAllTask();
+        ArrayList<Subtask> arrSubtasks = getAllSubtask();
+        ArrayList<Epic> arrEpics = getAllEpic();
 
-            try (Writer writer = Files.newBufferedWriter(file)) {
-                writer.write("id,type,name,status,description,epic");
+        try (Writer writer = Files.newBufferedWriter(file)) {
+            writer.write("id,type,name,status,description,epic");
+            writer.append(System.lineSeparator());
+
+            for (Task task : arrTask) {
+                writer.write(task.toString());
                 writer.append(System.lineSeparator());
-
-                for (Task task : arrTask) {
-                    writer.write(task.toString());
-                    writer.append(System.lineSeparator());
-                }
-
-                for (Epic epic : arrEpics) {
-                    writer.write(epic.toString());
-                    writer.append(System.lineSeparator());
-                }
-
-                for (Subtask subtask : arrSubtasks) {
-                    writer.write(subtask.toString());
-                    writer.append(System.lineSeparator());
-                }
-
-            } catch (IOException e) {
-                throw new ManagerSaveException("Ошибка при сохранении данных", e);
             }
+
+            for (Epic epic : arrEpics) {
+                writer.write(epic.toString());
+                writer.append(System.lineSeparator());
+            }
+
+            for (Subtask subtask : arrSubtasks) {
+                writer.write(subtask.toString());
+                writer.append(System.lineSeparator());
+            }
+
+        } catch (IOException e) {
+            throw new ManagerSaveException("Ошибка при сохранении данных", e);
         }
     }
 
     public static FileBackedTaskManager loadFromFile(Path file) throws IOException {
         FileBackedTaskManager manager = new FileBackedTaskManager(file);
-        position = "NotForSaveInFile";
         String text = Files.readString(file);
         String[] part = text.split("\n");
         if (part.length < 2) {
@@ -104,22 +162,16 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 String value = part[i];
                 AbstractTask abstractTask = manager.fromString(value);
                 if (abstractTask instanceof Task) {
-                    manager.addTask((Task) abstractTask);
+                    manager.putTask((Task) abstractTask);
                 } else if (abstractTask instanceof Epic) {
-                    manager.addEpic((Epic) abstractTask);
+                    manager.putEpic((Epic) abstractTask);
                 } else if (abstractTask instanceof Subtask) {
-                    manager.addSubtask((Subtask) abstractTask, ((Subtask) abstractTask).getEpicId());
+                    manager.putSubtask((Subtask) abstractTask);
                 }
             }
         }
-        position = "ForSaveInFile";
+        manager.subtaskIntoEpic();
         return manager;
     }
 
-    public class ManagerSaveException extends RuntimeException {
-
-        public ManagerSaveException(String message, Throwable cause) {
-            super(message, cause);
-        }
-    }
 }
