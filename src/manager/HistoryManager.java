@@ -1,10 +1,12 @@
-package Manager;
+package manager;
 
-import Model.AbstractTask;
+import model.AbstractTask;
 
 import java.util.List;
 
 public interface HistoryManager {
+
+    void remove(int id);
 
     void add(AbstractTask abstractTask);
 

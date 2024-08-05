@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.util.HashMap;
 
@@ -47,6 +47,10 @@ public class Epic extends AbstractTask {
         this.sons = sons;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public void deleteUnitSubstack(int id) {
         sons.remove(id);
     }
@@ -58,5 +62,15 @@ public class Epic extends AbstractTask {
     public HashMap<Integer, Subtask> getSons() {
         return sons;
     }
+
+    @Override
+    public String toString() {
+        return id +
+                ",EPIC" +
+                "," + name +
+                "," + status +
+                "," + description;
+    }
+
 
 }

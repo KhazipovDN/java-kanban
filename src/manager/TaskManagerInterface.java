@@ -1,9 +1,9 @@
-package Manager;
+package manager;
 
-import Model.AbstractTask;
-import Model.Epic;
-import Model.Subtask;
-import Model.Task;
+import model.AbstractTask;
+import model.Epic;
+import model.Subtask;
+import model.Task;
 
 import java.util.List;
 

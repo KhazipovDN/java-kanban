@@ -1,7 +1,7 @@
-package TestModule;
+package test;
 
-import Model.Status;
-import Model.Subtask;
+import model.Status;
+import model.Subtask;
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

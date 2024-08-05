@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.util.Objects;
 
@@ -11,6 +11,7 @@ public class Task extends AbstractTask {
     public Task(String name, String description, Status status) {
         super(name, description, status);
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -22,6 +23,15 @@ public class Task extends AbstractTask {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return id +
+                ",TASK" +
+                "," + name +
+                "," + status +
+                "," + description;
     }
 
 }

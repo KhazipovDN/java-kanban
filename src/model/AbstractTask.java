@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.util.Objects;
 
@@ -73,7 +73,7 @@ public class AbstractTask {
         return Objects.hashCode(id);
     }
 
-        public int getId() {
+    public int getId() {
         return id;
     }
 
