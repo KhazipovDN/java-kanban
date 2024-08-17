@@ -82,13 +82,12 @@ public class Epic extends AbstractTask {
         if (sons.isEmpty()) {
             startTime = null;
             endTime = null;
-        }
-        else {
+        } else {
             for (Subtask son : sons.values()) {
-                if(startTime.isAfter(son.getEndTime()))
-                    startTime=son.getEndTime();
-                if(endTime.isBefore(son.getEndTime()))
-                    endTime=son.getEndTime();
+                if (startTime.isAfter(son.getEndTime()))
+                    startTime = son.getEndTime();
+                if (endTime.isBefore(son.getEndTime()))
+                    endTime = son.getEndTime();
             }
             duration = Duration.between(startTime, endTime);
         }
@@ -96,8 +95,8 @@ public class Epic extends AbstractTask {
 
     @Override
     public String toString() {
-        if(duration == null){
-            duration=Duration.ofHours(0);
+        if(duration == null) {
+            duration = Duration.ofHours(0);
         }
         return id +
                 ",EPIC" +
