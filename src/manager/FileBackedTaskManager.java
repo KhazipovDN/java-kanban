@@ -43,10 +43,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             super.addSubtask(subtask, id);
             abstractTasks.add(subtask);
             save();
-        }
-        else {
+        } else {
             System.out.println("Задачи пересекаются");
-            System.out.println(subtask.getStartTime()+" "+subtask.getEndTime());
+            System.out.println(subtask.getStartTime() + " " + subtask.getEndTime());
 
         }
     }
@@ -60,10 +59,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         super.addTask(task);
         abstractTasks.add(task);
         save();
-        }
-        else {
+        } else {
             System.out.println("Задачи пересекаются");
-            System.out.println(task.getStartTime()+" "+task.getEndTime());
+            System.out.println(task.getStartTime() + " " + task.getEndTime());
         }
     }
 
@@ -108,10 +106,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             super.updateTask(taskObject);
             abstractTasks.add(taskObject);
             save();
-        }
-        else {
+        } else {
             System.out.println("Задачи пересекаются");
-            System.out.println(taskObject.getStartTime()+" "+taskObject.getEndTime());
+            System.out.println(taskObject.getStartTime() + " " + taskObject.getEndTime());
         }
     }
 
@@ -130,10 +127,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             super.updateSubtask(newSubtask);
             abstractTasks.add(newSubtask);
             save();
-        }
-        else {
+        } else {
             System.out.println("Задачи пересекаются");
-            System.out.println(newSubtask.getStartTime()+" "+newSubtask.getEndTime());
+            System.out.println(newSubtask.getStartTime() + " " + newSubtask.getEndTime());
         }
     }
 
