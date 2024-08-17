@@ -1,9 +1,12 @@
 package model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class Epic extends AbstractTask {
     private HashMap<Integer, Subtask> sons;
+    private LocalDateTime endTime;
 
     public Epic(String name, String description) {
         super(name, description);
@@ -11,14 +14,19 @@ public class Epic extends AbstractTask {
         this.status = Status.NEW;
     }
 
-    public Epic(String name, String description, int id) {
-        super(name, description, Status.NEW, id);
+    public Epic(String name, String description, int id, Duration duration, LocalDateTime startTime) {
+        super(name, description, id, duration, startTime);
         sons = new HashMap<>();
-        this.status = Status.NEW;
+    }
+
+    public Epic(String name, String description, int id) {
+        super(name, description, id);
+        sons = new HashMap<>();
     }
 
     public void setSubtask(Subtask subtask) {
         sons.put(subtask.getId(), subtask);
+        setTime();
     }
 
     public void updateSubtaskInEpic(int id, Subtask subtask) {
@@ -43,6 +51,11 @@ public class Epic extends AbstractTask {
         }
     }
 
+    @Override
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
     public void setSons(HashMap<Integer, Subtask> sons) {
         this.sons = sons;
     }
@@ -63,14 +76,36 @@ public class Epic extends AbstractTask {
         return sons;
     }
 
+    public void setTime() {
+        startTime = LocalDateTime.of(3000, 1, 1, 0, 0);
+        endTime = LocalDateTime.of(1000, 1, 1, 0, 0);
+        if (sons.isEmpty()) {
+            startTime = null;
+            endTime = null;
+        }
+        else {
+            for (Subtask son : sons.values()) {
+                if(startTime.isAfter(son.getEndTime()))
+                    startTime=son.getEndTime();
+                if(endTime.isBefore(son.getEndTime()))
+                    endTime=son.getEndTime();
+            }
+            duration = Duration.between(startTime, endTime);
+        }
+    }
+
     @Override
     public String toString() {
+        if(duration == null){
+            duration=Duration.ofHours(0);
+        }
         return id +
                 ",EPIC" +
                 "," + name +
                 "," + status +
-                "," + description;
+                "," + description +
+                "," + startTime +
+                "," + duration.toMinutes();
     }
-
 
 }

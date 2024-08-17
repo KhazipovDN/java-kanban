@@ -7,13 +7,23 @@ import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
     private Path file;
+    private TreeSet<AbstractTask> abstractTasks;
+    ArrayList<Task> arrTasks;
+    ArrayList<Subtask> arrSubtasks;
+    ArrayList<Epic> arrEpics;
 
     public FileBackedTaskManager(Path file) {
         this.file = file;
+        abstractTasks = new TreeSet<>();
 
         if (!Files.exists(file)) {
             try {
@@ -26,30 +36,59 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     @Override
     public void addSubtask(Subtask subtask, int id) {
-        super.addSubtask(subtask, id);
-        save();
+        List<AbstractTask> tasksList = getPrioritizedTasks();
+        boolean isChecked = tasksList.stream().anyMatch(anyTask -> isIntersection(((AbstractTask)subtask).getStartTime(),
+                ((AbstractTask)subtask).getEndTime(), ((AbstractTask)anyTask).getStartTime(), ((AbstractTask)anyTask).getEndTime()));
+        if (!isChecked) {
+            super.addSubtask(subtask, id);
+            abstractTasks.add(subtask);
+            save();
+        }
+        else {
+            System.out.println("Задачи пересекаются");
+            System.out.println(subtask.getStartTime()+" "+subtask.getEndTime());
+
+        }
     }
 
     @Override
     public void addTask(Task task) {
+        List<AbstractTask> tasksList = getPrioritizedTasks();
+        boolean isChecked = tasksList.stream().anyMatch(anyTask -> isIntersection(((AbstractTask)task).getStartTime(),
+                ((AbstractTask)task).getEndTime(), ((AbstractTask)anyTask).getStartTime(), ((AbstractTask)anyTask).getEndTime()));
+        if (!isChecked) {
         super.addTask(task);
+        abstractTasks.add(task);
         save();
+        }
+        else {
+            System.out.println("Задачи пересекаются");
+            System.out.println(task.getStartTime()+" "+task.getEndTime());
+        }
     }
 
     @Override
     public void addEpic(Epic epic) {
-        super.addEpic(epic);
-        save();
+        super.addEpic(epic);;
+            save();
     }
 
     @Override
     public void deleteAllTask() {
+        arrTasks = getAllTask();
+        for (Task task : arrTasks) {
+            abstractTasks.remove(task);
+        }
         super.deleteAllTask();
         save();
     }
 
     @Override
     public void deleteAllSubtask() {
+        arrSubtasks = getAllSubtask();
+        for (Subtask subtask : arrSubtasks) {
+            abstractTasks.remove(subtask);
+        }
         super.deleteAllSubtask();
         save();
     }
@@ -62,25 +101,46 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     @Override
     public void updateTask(Task taskObject) {
-        super.updateTask(taskObject);
-        save();
+        List<AbstractTask> tasksList = getPrioritizedTasks();
+        boolean isChecked = tasksList.stream().anyMatch(anyTask -> isIntersection(((AbstractTask)taskObject).getStartTime(),
+                ((AbstractTask)taskObject).getEndTime(), ((AbstractTask)anyTask).getStartTime(), ((AbstractTask)anyTask).getEndTime()));
+        if (!isChecked) {
+            super.updateTask(taskObject);
+            abstractTasks.add(taskObject);
+            save();
+        }
+        else {
+            System.out.println("Задачи пересекаются");
+            System.out.println(taskObject.getStartTime()+" "+taskObject.getEndTime());
+        }
     }
 
     @Override
     public void updateEpic(Epic newEpic) {
-        super.updateEpic(newEpic);
-        save();
+            super.updateEpic(newEpic);
+            save();
     }
 
     @Override
     public void updateSubtask(Subtask newSubtask) {
-        super.updateSubtask(newSubtask);
-        save();
+        List<AbstractTask> tasksList = getPrioritizedTasks();
+        boolean isChecked = tasksList.stream().anyMatch(anyTask -> isIntersection(((AbstractTask)newSubtask).getStartTime(),
+                ((AbstractTask)newSubtask).getEndTime(), ((AbstractTask)anyTask).getStartTime(), ((AbstractTask)anyTask).getEndTime()));
+        if (!isChecked) {
+            super.updateSubtask(newSubtask);
+            abstractTasks.add(newSubtask);
+            save();
+        }
+        else {
+            System.out.println("Задачи пересекаются");
+            System.out.println(newSubtask.getStartTime()+" "+newSubtask.getEndTime());
+        }
     }
 
     @Override
     public void deleteSubtask(int id) {
         super.deleteSubtask(id);
+        abstractTasks.remove(getSubtask(id));
         save();
     }
 
@@ -93,7 +153,17 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     @Override
     public void deleteTask(int id) {
         super.deleteTask(id);
+        abstractTasks.remove(getTask(id));
         save();
+    }
+
+    public boolean isIntersection(LocalDateTime startTime1, LocalDateTime endTime1,
+                                  LocalDateTime startTime2, LocalDateTime endTime2) {
+        return !(endTime1.isBefore(startTime2) || endTime2.isBefore(startTime1));
+    }
+
+    public List<AbstractTask> getPrioritizedTasks() {
+        return new ArrayList<>(abstractTasks);
     }
 
     public AbstractTask fromString(String value) {
@@ -106,16 +176,19 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         String name = parts[2];
         Status status = Status.valueOf(parts[3]);
         String description = parts[4];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime startTime = LocalDateTime.parse(parts[5], formatter);
+        int minutes = Integer.parseInt(parts[6].trim());
+        Duration duration = Duration.ofMinutes(minutes);
         int epicId = 0;
-        if (parts.length > 5) {
-            epicId = Integer.parseInt(parts[5].trim());
-
+        if (parts.length > 7) {
+            epicId = Integer.parseInt(parts[7].trim());
         }
         return switch (taskType) {
-            case TASK -> new Task(name, description, status, id);
-            case SUBTASK -> new Subtask(name, description, epicId, status, id);
+            case TASK -> new Task(name, description, status, id, duration, startTime);
+            case SUBTASK -> new Subtask(name, description, epicId, status, id, duration, startTime);
             case EPIC -> {
-                Epic epic = new Epic(name, description, id);
+                Epic epic = new Epic(name, description, id, duration, startTime);
                 epic.setStatus(status);
                 yield epic;
             }
@@ -123,15 +196,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     public void save() throws ManagerSaveException {
-        ArrayList<Task> arrTask = getAllTask();
-        ArrayList<Subtask> arrSubtasks = getAllSubtask();
-        ArrayList<Epic> arrEpics = getAllEpic();
-
+        arrTasks = getAllTask();
+        arrSubtasks = getAllSubtask();
+        arrEpics = getAllEpic();
         try (Writer writer = Files.newBufferedWriter(file)) {
-            writer.write("id,type,name,status,description,epic");
+            writer.write("id,type,name,status,description,duration,startTime,epic");
             writer.append(System.lineSeparator());
 
-            for (Task task : arrTask) {
+            for (Task task : arrTasks) {
                 writer.write(task.toString());
                 writer.append(System.lineSeparator());
             }

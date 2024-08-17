@@ -1,15 +1,17 @@
 package model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task extends AbstractTask {
 
-    public Task(String name, String description, Status status, int id) {
-        super(name, description, status, id);
+    public Task(String name, String description, Status status, int id, Duration duration, LocalDateTime startTime) {
+        super(name, description, status, id, duration, startTime);
     }
 
-    public Task(String name, String description, Status status) {
-        super(name, description, status);
+    public Task(String name, String description, Status status, Duration duration, LocalDateTime startTime) {
+        super(name, description, status, duration, startTime);
     }
 
     @Override
@@ -31,7 +33,9 @@ public class Task extends AbstractTask {
                 ",TASK" +
                 "," + name +
                 "," + status +
-                "," + description;
+                "," + description +
+                "," + startTime +
+                "," + duration.toMinutes();
     }
 
 }
