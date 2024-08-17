@@ -95,7 +95,7 @@ public class Epic extends AbstractTask {
 
     @Override
     public String toString() {
-        if(duration == null) {
+        if (duration == null) {
             duration = Duration.ofHours(0);
         }
         return id +
