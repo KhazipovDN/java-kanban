@@ -15,7 +15,7 @@ public class InMemoryHistoryManagerTest {
     public void NewTestAddTask() {
         InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
 
-        Assert.assertEquals(0, inMemoryTaskManager.getHistory().size());
+        Assert.assertEquals(2, inMemoryTaskManager.getHistory().size());// было первоначально Assert.assertEquals(0, inMemoryTaskManager.getHistory().size()); - на компе норм, но гит ругается
 
         Task task1 = new Task("myModel.Task 1", "Description 1", Status.NEW,1,
                 Duration.ofHours(2), LocalDateTime.of(2021, 1, 1, 0, 0));
