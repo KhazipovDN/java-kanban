@@ -1,4 +1,4 @@
-package manager;
+package test;
 
 import model.Status;
 import model.Subtask;

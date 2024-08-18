@@ -1,10 +1,9 @@
-package manager;
+package test;
 
 import model.Status;
 import model.Task;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package manager;
+package test;
 
 import model.Epic;
 import model.Status;

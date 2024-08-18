@@ -1,4 +1,4 @@
-package manager;
+package test;
 
 import myexception.ManagerSaveException;
 import org.junit.jupiter.api.Test;
