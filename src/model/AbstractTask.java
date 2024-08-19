@@ -18,12 +18,6 @@ public class AbstractTask implements Comparable<AbstractTask> {
         this.description = description;
     }
 
-    public AbstractTask(String name, String description, int id, Duration duration, LocalDateTime startTime) {
-        this.name = name;
-        this.description = description;
-        this.id = id;
-    }
-
     public AbstractTask(String name, String description, Status status,  Duration duration, LocalDateTime startTime) {
         this.name = name;
         this.description = description;
@@ -46,6 +40,14 @@ public class AbstractTask implements Comparable<AbstractTask> {
         this.duration = duration;
         this.startTime = startTime;
     }
+
+    public AbstractTask(String name, String description, Status status, int id) {
+        this.name = name;
+        this.description = description;
+        this.id = id;
+        this.status = status;
+    }
+
 
     public String getDescription() {
         return description;
@@ -110,11 +112,23 @@ public class AbstractTask implements Comparable<AbstractTask> {
     }
 
     public LocalDateTime getEndTime() {
+        if (startTime!=null)
         return startTime.plusMinutes(duration.toMinutes());
+        else return null;
     }
 
     @Override
     public int compareTo(AbstractTask abstractTask) {
-        return startTime.compareTo(abstractTask.getStartTime());
+        if (this.startTime == null) {
+            if (abstractTask.getStartTime() == null) {
+                return 0;
+            } else {
+                return -1;
+            }
+        } else if (abstractTask.getStartTime() == null) {
+            return 1;
+        } else {
+            return this.startTime.compareTo(abstractTask.getStartTime());
+        }
     }
 }

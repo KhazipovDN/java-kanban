@@ -14,8 +14,8 @@ public class Epic extends AbstractTask {
         this.status = Status.NEW;
     }
 
-    public Epic(String name, String description, int id, Duration duration, LocalDateTime startTime) {
-        super(name, description, id, duration, startTime);
+    public Epic(String name, String description, int id, Status status, Duration duration, LocalDateTime startTime) {
+        super(name, description, status, id, duration, startTime);
         sons = new HashMap<>();
     }
 
@@ -77,19 +77,23 @@ public class Epic extends AbstractTask {
     }
 
     public void setTime() {
-        startTime = LocalDateTime.of(3000, 1, 1, 0, 0);
-        endTime = LocalDateTime.of(1000, 1, 1, 0, 0);
-        if (sons.isEmpty()) {
+        Duration subDuration = Duration.ofSeconds(0);
+        duration = Duration.ofSeconds(0);
+        startTime = LocalDateTime.MAX;
+        endTime = LocalDateTime.MIN;
+        if (sons.isEmpty() && duration != null) {
             startTime = null;
             endTime = null;
         } else {
             for (Subtask son : sons.values()) {
-                if (startTime.isAfter(son.getEndTime()))
-                    startTime = son.getEndTime();
-                if (endTime.isBefore(son.getEndTime()))
+                if (startTime.isAfter(son.getStartTime()))
+                    startTime = son.getStartTime();
+                if (endTime.isBefore(son.getEndTime())) {
                     endTime = son.getEndTime();
+                }
+                subDuration = Duration.between(son.getStartTime(), son.getEndTime());
+                duration = duration.plus(subDuration);
             }
-            duration = Duration.between(startTime, endTime);
         }
     }
 

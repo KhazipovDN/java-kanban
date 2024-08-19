@@ -1,9 +1,8 @@
-package test;
+package manager;
 
 import model.Status;
 import model.Task;
 import org.junit.Test;
-import manager.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

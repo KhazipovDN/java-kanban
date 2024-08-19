@@ -4,7 +4,6 @@ public class Managers {
     static TaskManagerInterface TaskManager = new InMemoryTaskManager();
     static HistoryManager viewed = new InMemoryHistoryManager();
 
-
     public static TaskManagerInterface getDefault() {
         return TaskManager;
     }

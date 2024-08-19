@@ -1,7 +1,7 @@
-package test;
+package manager;
 
 import org.junit.Test;
-import manager.*;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 

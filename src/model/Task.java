@@ -10,6 +10,10 @@ public class Task extends AbstractTask {
         super(name, description, status, id, duration, startTime);
     }
 
+    public Task(String name, String description, Status status, int id) {
+        super(name, description, status, id);
+    }
+
     public Task(String name, String description, Status status, Duration duration, LocalDateTime startTime) {
         super(name, description, status, duration, startTime);
     }
