@@ -1,4 +1,4 @@
-package manager;
+package test;
 
 import java.io.IOException;
 import model.Epic;
@@ -6,6 +6,7 @@ import model.Status;
 import model.Subtask;
 import model.Task;
 import org.junit.jupiter.api.Test;
+import org.manager.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package manager;
+package test;
 
 import model.Epic;
 import model.Status;
@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import org.manager.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

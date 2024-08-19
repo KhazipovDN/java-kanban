@@ -1,9 +1,10 @@
-package manager;
+package test;
 
 import model.Epic;
 import model.Status;
 import model.Subtask;
 import org.junit.Test;
+import org.manager.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

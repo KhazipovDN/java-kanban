@@ -1,15 +1,17 @@
-package manager;
+package test;
 
 import myexception.ManagerSaveException;
 import org.junit.jupiter.api.Test;
+import org.manager.*;
 
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ExceptionTest {
+
     @Test
-    public void testManagerSaveException() {// не знаю, правильно ли сделано, но я не понял что делать
+    public void testManagerSaveException() {
         assertThrows(ManagerSaveException.class, () -> {
             File tempFile = File.createTempFile("task-manager-test", ".txt");
             tempFile.setReadOnly();
