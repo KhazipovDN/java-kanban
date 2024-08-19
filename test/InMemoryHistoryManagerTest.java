@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import org.manager.*;
+import manager.*;
 
 public class InMemoryHistoryManagerTest {
 

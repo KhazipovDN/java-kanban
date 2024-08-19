@@ -3,7 +3,7 @@ package test;
 import model.Status;
 import model.Task;
 import org.junit.Test;
-import org.manager.*;
+import manager.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

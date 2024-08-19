@@ -1,7 +1,7 @@
 package test;
 
 import java.io.IOException;
-import org.manager.*;
+import manager.*;
 
 class TaskManagerInterfaceTest extends TaskManagerTest{
     InMemoryTaskManager taskManager;
