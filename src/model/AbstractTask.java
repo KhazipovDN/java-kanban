@@ -1,22 +1,44 @@
-package Model;
+package model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class AbstractTask {
+public class AbstractTask implements Comparable<AbstractTask> {
     protected String name;
     protected String description;
     protected int id;
     protected Status status;
+    protected Duration duration;
+    protected LocalDateTime startTime;
+
 
     public AbstractTask(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public AbstractTask(String name, String description, Status status) {
+    public AbstractTask(String name, String description, Status status,  Duration duration, LocalDateTime startTime) {
         this.name = name;
         this.description = description;
         this.status = status;
+        this.duration = duration;
+        this.startTime = startTime;
+    }
+
+    public AbstractTask(String name, String description, int id) {
+        this.name = name;
+        this.description = description;
+        this.id = id;
+    }
+
+    public AbstractTask(String name, String description, Status status, int id,  Duration duration, LocalDateTime startTime) {
+        this.name = name;
+        this.description = description;
+        this.id = id;
+        this.status = status;
+        this.duration = duration;
+        this.startTime = startTime;
     }
 
     public AbstractTask(String name, String description, Status status, int id) {
@@ -25,6 +47,7 @@ public class AbstractTask {
         this.id = id;
         this.status = status;
     }
+
 
     public String getDescription() {
         return description;
@@ -38,6 +61,14 @@ public class AbstractTask {
         return name;
     }
 
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -49,7 +80,6 @@ public class AbstractTask {
     public Status getStatus() {
         return status;
     }
-
 
     @Override
     public String toString() {
@@ -73,11 +103,32 @@ public class AbstractTask {
         return Objects.hashCode(id);
     }
 
-        public int getId() {
+    public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public LocalDateTime getEndTime() {
+        if (startTime != null)
+        return startTime.plusMinutes(duration.toMinutes());
+        else return null;
+    }
+
+    @Override
+    public int compareTo(AbstractTask abstractTask) {
+        if (this.startTime == null) {
+            if (abstractTask.getStartTime() == null) {
+                return 0;
+            } else {
+                return -1;
+            }
+        } else if (abstractTask.getStartTime() == null) {
+            return 1;
+        } else {
+            return this.startTime.compareTo(abstractTask.getStartTime());
+        }
     }
 }
