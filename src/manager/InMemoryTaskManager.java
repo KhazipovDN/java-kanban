@@ -87,6 +87,7 @@ public class InMemoryTaskManager implements TaskManagerInterface {
     @Override
     public void deleteAllEpic() {
         for (Subtask subtask : subtasks.values()) {
+            abstractTasks.remove(subtask);
             historyManager.remove(subtask.getId());
         }
         for (Epic e : epics.values()) {
@@ -179,6 +180,7 @@ public class InMemoryTaskManager implements TaskManagerInterface {
                 ((AbstractTask) taskObject).getEndTime(), ((AbstractTask) anyTask).getStartTime(), ((AbstractTask) anyTask).getEndTime()));
         if (!isChecked) {
             if (tasks.containsKey(taskObject.getId())) {
+                abstractTasks.remove(tasks.get(taskObject.getId()));
                 tasks.put(taskObject.getId(), taskObject);
                 abstractTasks.add(taskObject);
             } else
@@ -209,6 +211,7 @@ public class InMemoryTaskManager implements TaskManagerInterface {
         if (!isChecked) {
         if (subtasks.containsKey(id)) {
             if (newSubtask.getEpicId() == subtasks.get(id).getEpicId()) {
+                abstractTasks.remove(subtasks.get(newSubtask.getId()));
                 abstractTasks.add(newSubtask);
                 subtasks.put(id, newSubtask);
                 epics.get(newSubtask.getEpicId()).updateSubtaskInEpic(id, newSubtask);
