@@ -116,7 +116,7 @@ public class InMemoryTaskManager implements TaskManagerInterface {
     }
 
     @Override
-    public boolean isChecked(AbstractTask newTask){
+    public boolean isChecked(AbstractTask newTask) {
     List<AbstractTask> tasksList = getPrioritizedTasks();
     boolean check = tasksList.stream().anyMatch(anyTask -> isIntersection(newTask.getStartTime(),
                 (newTask).getEndTime(), ((AbstractTask)anyTask).getStartTime(), ((AbstractTask)anyTask).getEndTime()));
