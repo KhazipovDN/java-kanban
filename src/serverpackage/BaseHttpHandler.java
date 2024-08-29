@@ -2,7 +2,6 @@ package serverpackage;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import manager.HistoryManager;
 import manager.Managers;
 import manager.TaskManagerInterface;
@@ -35,7 +34,7 @@ public class BaseHttpHandler {
         h.close();
     }
 
-    protected void sendHasInteractions  (HttpExchange h, String text) throws IOException {
+    protected void sendHasInteractions(HttpExchange h, String text) throws IOException {
         byte[] resp = text.getBytes(StandardCharsets.UTF_8);
         h.getResponseHeaders().add("Content-Type", "application/json; charset=utf-8");
         h.sendResponseHeaders(404, resp.length);
@@ -50,6 +49,7 @@ public class BaseHttpHandler {
         h.getResponseBody().write(resp);
         h.close();
     }
+
     protected void overlapText(HttpExchange h, String text) throws IOException {
         byte[] resp = text.getBytes(StandardCharsets.UTF_8);
         h.getResponseHeaders().add("Content-Type", "application/json;charset=utf-8");
