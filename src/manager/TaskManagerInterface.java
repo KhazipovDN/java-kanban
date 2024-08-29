@@ -8,6 +8,9 @@ import model.Task;
 import java.util.List;
 
 public interface TaskManagerInterface {
+
+    boolean isChecked(AbstractTask newTask);
+
     List<Subtask> subtaskFromEpic(int id);
 
     List<Task> getAllTask();
@@ -45,6 +48,8 @@ public interface TaskManagerInterface {
     void deleteEpic(int id);
 
     void deleteTask(int id);
+
+    List<AbstractTask> getPrioritizedTasks();
 
     List<AbstractTask> getHistory();
 

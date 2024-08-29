@@ -116,11 +116,16 @@ public class InMemoryTaskManager implements TaskManagerInterface {
     }
 
     @Override
+    public boolean isChecked(AbstractTask newTask){
+    List<AbstractTask> tasksList = getPrioritizedTasks();
+    boolean check = tasksList.stream().anyMatch(anyTask -> isIntersection(newTask.getStartTime(),
+                (newTask).getEndTime(), ((AbstractTask)anyTask).getStartTime(), ((AbstractTask)anyTask).getEndTime()));
+    return check;
+    }
+
+    @Override
     public void addTask(Task newtask) {
-        List<AbstractTask> tasksList = getPrioritizedTasks();
-        boolean isChecked = tasksList.stream().anyMatch(anyTask -> isIntersection(((AbstractTask)newtask).getStartTime(),
-                ((AbstractTask)newtask).getEndTime(), ((AbstractTask)anyTask).getStartTime(), ((AbstractTask)anyTask).getEndTime()));
-        if (!isChecked) {
+        if (!isChecked(newtask)) {
         count++;
         newtask.setId(count);
         tasks.put(count, newtask);
@@ -145,11 +150,8 @@ public class InMemoryTaskManager implements TaskManagerInterface {
 
     @Override
     public void addSubtask(Subtask newSubtask, int epicId) {
-        List<AbstractTask> tasksList = getPrioritizedTasks();
-        boolean isChecked = tasksList.stream().anyMatch(anyTask -> isIntersection(((AbstractTask)newSubtask).getStartTime(),
-                ((AbstractTask)newSubtask).getEndTime(), ((AbstractTask)anyTask).getStartTime(), ((AbstractTask)anyTask).getEndTime()));
         if (epics.containsKey(epicId)) {
-            if (!isChecked) {
+            if (!isChecked(newSubtask)) {
                 count++;
                 newSubtask.setId(count);
                 subtasks.put(count, newSubtask);
@@ -175,10 +177,7 @@ public class InMemoryTaskManager implements TaskManagerInterface {
 
     @Override
     public void updateTask(Task taskObject) {
-        List<AbstractTask> tasksList = getPrioritizedTasks();
-        boolean isChecked = tasksList.stream().anyMatch(anyTask -> isIntersection(((AbstractTask) taskObject).getStartTime(),
-                ((AbstractTask) taskObject).getEndTime(), ((AbstractTask) anyTask).getStartTime(), ((AbstractTask) anyTask).getEndTime()));
-        if (!isChecked) {
+       if (!isChecked(taskObject)) {
             if (tasks.containsKey(taskObject.getId())) {
                 abstractTasks.remove(tasks.get(taskObject.getId()));
                 tasks.put(taskObject.getId(), taskObject);
@@ -190,7 +189,6 @@ public class InMemoryTaskManager implements TaskManagerInterface {
             System.out.println(taskObject.getStartTime() + " " + taskObject.getEndTime());
         }
     }
-
 
     @Override
     public void updateEpic(Epic newEpic) {
@@ -205,10 +203,7 @@ public class InMemoryTaskManager implements TaskManagerInterface {
     @Override
     public void updateSubtask(Subtask newSubtask) {
         int id = newSubtask.getId();
-        List<AbstractTask> tasksList = getPrioritizedTasks();
-        boolean isChecked = tasksList.stream().anyMatch(anyTask -> isIntersection(((AbstractTask)newSubtask).getStartTime(),
-                ((AbstractTask)newSubtask).getEndTime(), ((AbstractTask)anyTask).getStartTime(), ((AbstractTask)anyTask).getEndTime()));
-        if (!isChecked) {
+        if (!isChecked(newSubtask)) {
         if (subtasks.containsKey(id)) {
             if (newSubtask.getEpicId() == subtasks.get(id).getEpicId()) {
                 abstractTasks.remove(subtasks.get(newSubtask.getId()));
@@ -279,6 +274,7 @@ public class InMemoryTaskManager implements TaskManagerInterface {
         return !(endTime1.isBefore(startTime2) || endTime2.isBefore(startTime1));
     }
 
+    @Override
     public List<AbstractTask> getPrioritizedTasks() {
         return new ArrayList<>(abstractTasks);
     }
