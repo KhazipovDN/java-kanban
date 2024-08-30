@@ -72,7 +72,7 @@ public class EpicsHandler extends BaseHttpHandler implements HttpHandler {
             }
             case Endpoint.DELETE: {
                 manager.deleteEpic(id);
-                sendAddTask(exchange, "Эпик c id="+id+" успешно удален");
+                sendAddTask(exchange, "Эпик c id=" + id + " успешно удален");
                 break;
             }
             case Endpoint.GET_SUBTASK: {

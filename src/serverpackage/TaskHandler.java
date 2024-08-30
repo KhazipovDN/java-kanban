@@ -62,7 +62,7 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
                     if (task.getId() == 0) {
                         manager.addTask(task);
                     } else manager.updateTask(task);}
-                    sendAddTask(exchange, "Задача c id="+task.getId()+" успешно добавлена/обновлена");
+                    sendAddTask(exchange, "Задача c id=" + task.getId() + " успешно добавлена/обновлена");
 
                 break;
             }
@@ -70,7 +70,7 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
             case GET_TASK: {
                 System.out.println("Точка 2");
                 if (manager.getTask(id) == null) {
-                    sendHasInteractions(exchange, "Такой задачи нет c id="+id);
+                    sendHasInteractions(exchange, "Такой задачи нет c id=" + id);
                 } else {
                     String message = gson.toJson(manager.getTask(id));
                     sendText(exchange, message);
@@ -79,7 +79,7 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
             }
             case Endpoint.DELETE: {
                 manager.deleteTask(id);
-                sendAddTask(exchange, "Задача c id="+id+" успешно удалена");
+                sendAddTask(exchange, "Задача c id=" + id + " успешно удалена");
                 break;
             }
         }
