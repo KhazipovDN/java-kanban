@@ -60,14 +60,14 @@ public class SubtaskHandler extends BaseHttpHandler implements HttpHandler {
                     if (subtask.getId() == 0) {
                         manager.addSubtask(subtask, subtask.getEpicId());
                     } else manager.updateSubtask(subtask);
-                    sendAddTask(exchange, "Подзадача id="+subtask.getId()+"  успешно добавлена/обновлена");
+                    sendAddTask(exchange, "Подзадача id=" + subtask.getId() + "  успешно добавлена/обновлена");
                 }
                 break;
             }
 
             case GET_TASK: {
                 if (manager.getSubtask(id) == null) {
-                    sendHasInteractions(exchange, "Такой подзадачи нет c id="+id);
+                    sendHasInteractions(exchange, "Такой подзадачи нет c id=" + id);
                 } else {
                     String message = gson.toJson(manager.getSubtask(id));
                     sendText(exchange, message);
@@ -76,7 +76,7 @@ public class SubtaskHandler extends BaseHttpHandler implements HttpHandler {
             }
             case Endpoint.DELETE: {
                 manager.deleteSubtask(id);
-                sendAddTask(exchange, "Подзадача успешно удалена c id="+id);
+                sendAddTask(exchange, "Подзадача успешно удалена c id=" + id);
                 break;
             }
         }

@@ -58,12 +58,12 @@ public class EpicsHandler extends BaseHttpHandler implements HttpHandler {
                     manager.addEpic(epic);
                 } else manager.updateEpic(epic);
                 manager.addEpic(epic);
-                sendAddTask(exchange, "Эпик c id="+epic.getId()+" успешно добавлен");
+                sendAddTask(exchange, "Эпик c id=" + epic.getId() + " успешно добавлен");
                 break;
             }
             case GET_TASK: {
                 if (manager.getEpic(id) == null) {
-                    sendHasInteractions(exchange, "Такого эпика нет c id="+id);
+                    sendHasInteractions(exchange, "Такого эпика нет c id=" + id);
                 } else {
                     String message = gson.toJson(manager.getEpic(id));
                     sendText(exchange, message);
@@ -77,7 +77,7 @@ public class EpicsHandler extends BaseHttpHandler implements HttpHandler {
             }
             case Endpoint.GET_SUBTASK: {
                 if (manager.subtaskFromEpic(id) == null) {
-                    sendHasInteractions(exchange, "Такого эпика нет id="+id);
+                    sendHasInteractions(exchange, "Такого эпика нет id=" + id);
                 } else {
                     String message = gson.toJson(manager.subtaskFromEpic(id));
                     sendText(exchange, message);
