@@ -21,8 +21,8 @@ public class HttpTaskServer {
         server.createContext("/epics", new EpicsHandler(manager));
         server.createContext("/history", new HistoryHandler(manager));
         server.createContext("/prioritized", new PrioritizedHandler(manager));
-
     }
+
     public void start() {
         server.start();
     }
@@ -30,5 +30,4 @@ public class HttpTaskServer {
     public void stop() {
         server.stop(0);
     }
-
 }
