@@ -1,11 +1,6 @@
 package serverpackage;
 
-import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
-import manager.HistoryManager;
-import manager.Managers;
-import manager.TaskManagerInterface;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
