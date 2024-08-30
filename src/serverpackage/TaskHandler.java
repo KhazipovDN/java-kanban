@@ -61,9 +61,9 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
                 } else {
                     if (task.getId() == 0) {
                         manager.addTask(task);
-                    } else manager.updateTask(task);}
+                    } else manager.updateTask(task);
                     sendAddTask(exchange, "Задача c id=" + task.getId() + " успешно добавлена/обновлена");
-
+                }
                 break;
             }
 
