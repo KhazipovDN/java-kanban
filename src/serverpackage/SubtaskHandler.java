@@ -54,7 +54,7 @@ public class SubtaskHandler extends BaseHttpHandler implements HttpHandler {
                 System.out.println(message);
                 Subtask subtask = gson.fromJson(message, Subtask.class);
                 System.out.println(subtask);
-                if (!manager.isChecked(subtask)) {
+                if (manager.isChecked(subtask)) {
                     overlapText(exchange, "Поздадачи пересекаются.");
                 } else {
                     if (subtask.getId() == 0) {
