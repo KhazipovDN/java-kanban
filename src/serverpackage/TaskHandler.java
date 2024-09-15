@@ -56,7 +56,7 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
             case Endpoint.POST_TASK: {
                 String message = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
                 Task task = gson.fromJson(message, Task.class);
-                if (!manager.isChecked(task)) {
+                if (manager.isChecked(task)) {
                     overlapText(exchange, "Задачи пересекаются.");
                 } else {
                     if (task.getId() == 0) {
