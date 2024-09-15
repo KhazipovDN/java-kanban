@@ -1,24 +1,31 @@
-package TestModule;
+package test;
 
-import Manager.InMemoryTaskManager;
-import Model.Epic;
-import Model.Status;
-import Model.Subtask;
-import Model.Task;
+import java.io.IOException;
+import model.Epic;
+import model.Status;
+import model.Subtask;
+import model.Task;
 import org.junit.jupiter.api.Test;
+import manager.*;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TaskManagerInterfaceTest {
-    InMemoryTaskManager taskManager=new InMemoryTaskManager();
+abstract class TaskManagerTest<T extends InMemoryTaskManager> {
+    protected T taskManager;
+
+    public TaskManagerTest(T taskManager) throws IOException {
+        this.taskManager = taskManager;
+    }
 
     @Test
     void addNewEpic() {
         Epic epic = new Epic("Test addNewSubtask", "Test addNewSubtask description");
         taskManager.addEpic(epic);
-        final int epicId =epic.getId();
+        final int epicId = epic.getId();
 
         final Epic savedEpic = taskManager.getEpic(epicId);
 
@@ -37,9 +44,10 @@ class TaskManagerInterfaceTest {
     void addNewSubtask() {
         Epic epic = new Epic("Test addNewSubtask", "Test addNewSubtask description");
         taskManager.addEpic(epic);
-        Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description",1, Status.NEW);
+        Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description",1, Status.NEW,
+                Duration.ofHours(2), LocalDateTime.of(2023, 1, 1, 0, 0));
         taskManager.addSubtask(subtask,1);
-        final int subtaskId =subtask.getId();
+        final int subtaskId = subtask.getId();
 
         final Subtask savedSubtask = taskManager.getSubtask(subtaskId);
 
@@ -55,9 +63,10 @@ class TaskManagerInterfaceTest {
 
     @Test
     void addNewTask() {
-        Task task = new Task("Test addNewTask", "Test addNewTask description", Status.NEW);
+        Task task = new Task("Test addNewTask", "Test addNewTask description", Status.NEW,
+                Duration.ofHours(2), LocalDateTime.of(2023, 1, 1, 0, 0));
         taskManager.addTask(task);
-        final int taskId =task.getId();
+        final int taskId = task.getId();
 
         final Task savedTask = taskManager.getTask(taskId);
 
@@ -73,21 +82,23 @@ class TaskManagerInterfaceTest {
 
     @Test
     public void checkIdConflict() {
-        Task task1 = new Task("Test addFirstTask", "Test addFirstTask description", Status.NEW);
+        Task task1 = new Task("Test addFirstTask", "Test addFirstTask description", Status.NEW,
+                Duration.ofHours(2), LocalDateTime.of(2023, 1, 1, 0, 0));
         taskManager.addTask(task1);
 
-        Task task2 = new Task("Test addSecondTask", "Test addSecondTask description", Status.NEW,2);
+        Task task2 = new Task("Test addSecondTask", "Test addSecondTask description", Status.NEW,2,
+                Duration.ofHours(2), LocalDateTime.of(2023, 1, 1, 0, 0));
         assertNotEquals(task1, task2);
     }
 
     @Test
     public void immutabilityTask() {
-        Task task1 = new Task("Test addFirstTask", "Test addFirstTask description", Status.NEW,1);
+        Task task1 = new Task("Test addFirstTask", "Test addFirstTask description", Status.NEW,1,
+                Duration.ofHours(2), LocalDateTime.of(2023, 1, 1, 0, 0));
         taskManager.addTask(task1);
 
         Task task2 = taskManager.getTask(1);
         assertEquals(task1, task2);
     }
-
 
 }
